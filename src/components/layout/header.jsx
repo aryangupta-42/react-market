@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   navContainer: {
     flexGrow: 1,
+    color: 'rgba(0,0,0,0.3)',
+  },
+  center: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -31,14 +34,14 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'none',
     color: 'white',
     width: 'auto',
-    lineHeight: theme.spacing(0.45),
     backgroundColor: 'rgba(250, 250, 250, 0.3)',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
     borderRadius: '20px',
-    margin: theme.spacing(4),
+    margin: theme.spacing(2),
+    display: 'block',
     transition: '0.2s ease-out',
     '&:hover, &:focus': {
       boxShadow: theme.shadows[1],
@@ -60,15 +63,20 @@ const Header = () => {
         <Typography variant="h6" className={classes.title}>
           Xeno
         </Typography>
-        <Breadcrumbs aria-label="breadcrumb" className={classes.navContainer}>
+        <Breadcrumbs separator="|" aria-label="breadcrumb" classes={{ root: classes.navContainer, ol: classes.center }}>
           <Typography>
-            <Link to="/" className={classes.navElement}>
+            <Link to="/" className={classes.navElement} aria-current="page">
               Home
             </Link>
           </Typography>
           <Typography>
             <Link to="/about" className={classes.navElement}>
               About
+            </Link>
+          </Typography>
+          <Typography>
+            <Link to="/cart" className={classes.navElement}>
+              Cart
             </Link>
           </Typography>
           <Typography>

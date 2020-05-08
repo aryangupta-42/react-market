@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Header from './components/layout/header';
 import Landing from './pages/landing';
+import About from './pages/about';
+import Cart from './pages/cart';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,7 +25,8 @@ const App = () => {
         <Header />
         <Switch>
           <Route exact path="/" component={Landing} />
-          {/* <Route path="/about" component={Aboutf} /> */}
+          <Route path="/about" component={About} />
+          <Route path="/cart" component={Cart} />
         </Switch>
       </div>
     </Router>

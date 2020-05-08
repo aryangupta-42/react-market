@@ -1,10 +1,10 @@
 import React from 'react';
 import SubHeader from '../components/layout/subHeader';
 
-const Landing = () => (
+const Cart = () => (
   <div>
-    <SubHeader title="Home" />
+    <SubHeader title="Cart" />
   </div>
 );
 
-export default Landing;
+export default Cart;

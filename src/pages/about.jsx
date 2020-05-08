@@ -1,10 +1,10 @@
 import React from 'react';
 import SubHeader from '../components/layout/subHeader';
 
-const Landing = () => (
+const About = () => (
   <div>
-    <SubHeader title="Home" />
+    <SubHeader title="About" />
   </div>
 );
 
-export default Landing;
+export default About;

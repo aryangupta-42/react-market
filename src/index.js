@@ -1,14 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#fff',
+      main: '#ef5366',
+      dark: '#000',
+    },
+    secondary: {
+      main: 'rgba(240, 240, 240, 0.8)',
+    },
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  // eslint-disable-next-line react/jsx-filename-extension
+  <MuiThemeProvider theme={theme}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </MuiThemeProvider>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

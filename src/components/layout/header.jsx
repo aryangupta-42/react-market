@@ -51,6 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
   loginButton: {
     flexGrow: 0.2,
+    color: 'white',
+    paddingLeft: theme.spacing(7),
+    paddingRight: theme.spacing(7),
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+  },
+  adminNav: {
+    textDecoration: 'none',
+    fontStyle: 'none',
   },
 }));
 
@@ -58,7 +66,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Xeno
@@ -85,7 +93,11 @@ const Header = () => {
             </Link>
           </Typography>
         </Breadcrumbs>
-        <Button color="inherit" className={classes.loginButton}>Login</Button>
+        <Link to="/admin" className={classes.adminNav}>
+          <Button color="inherit" className={classes.loginButton}>
+            Login
+          </Button>
+        </Link>
       </Toolbar>
     </AppBar>
   );

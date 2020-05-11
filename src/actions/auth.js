@@ -2,10 +2,6 @@
 /* eslint-disable no-console */
 import axios from '../utility/axios';
 import {
-  // REGISTER_SUCCESS,
-  // REGISTER_FAIL,
-  // USER_LOADED,
-  // AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOG_OUT,

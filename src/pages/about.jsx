@@ -2,9 +2,9 @@ import React from 'react';
 import SubHeader from '../components/layout/subHeader';
 
 const About = () => (
-  <div>
+  <section>
     <SubHeader title="About" />
-  </div>
+  </section>
 );
 
 export default About;

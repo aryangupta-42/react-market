@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SubHeader from '../components/layout/subHeader';
-// import axios from '../utility/axios';
-
 
 const Cart = () => (
   <section>

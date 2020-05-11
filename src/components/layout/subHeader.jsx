@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   icon: {
-    // lineHeight: theme.spacing(0.2),
     paddingTop: theme.spacing(0.2),
     marginRight: theme.spacing(1.5),
   },
@@ -54,16 +53,12 @@ const SubHeader = (props) => {
 
   return (
     <div className={classes.root}>
-      {/* <div className={classes.titleContainer}> */}
-      {/* <Typography variant="h2" className={classes.icon}> */}
-      {/* </Typography> */}
       <Typography variant="h4" className={classes.title}>
         <span className={classes.icon}>
           {icon}
         </span>
         {title}
       </Typography>
-      {/* </div> */}
       <div className={classes.bottomBar} />
     </div>
   );

@@ -1,5 +1,5 @@
 import {
-  REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_FAIL, LOGIN_SUCCESS, LOG_OUT,
+  LOGIN_FAIL, LOGIN_SUCCESS, LOG_OUT,
 } from '../actions/types';
 
 const initialState = {

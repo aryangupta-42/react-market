@@ -28,9 +28,7 @@ ReactDOM.render(
   // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('root'),

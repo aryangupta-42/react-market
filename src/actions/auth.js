@@ -28,7 +28,6 @@ export const login = (loginDetails) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
     const error = err.response.data;
-    console.log(error);
     dispatch(setAlert(error.message, 'error'));
   }
 };

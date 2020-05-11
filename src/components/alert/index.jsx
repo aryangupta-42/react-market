@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -19,24 +19,18 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomizedSnackbars(props) {
   const classes = useStyles();
 
-  const { status, message, severity } = props;
+  const {
+    status, message, severity, handleClose,
+  } = props;
 
-  const [state, setState] = React.useState({
-    open: status,
-    vertical: 'bottom',
-    horizontal: 'left',
-  });
+  const horizontal = 'left';
+  const vertical = 'bottom';
 
-  const { vertical, horizontal, open } = state;
+  const [open, setOpen] = useState(false);
 
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setState({ ...state, open: false });
-  };
+  React.useEffect(() => {
+    setOpen(status);
+  }, [status]);
 
   return (
     <div className={classes.root}>
@@ -57,11 +51,12 @@ export default function CustomizedSnackbars(props) {
 
 CustomizedSnackbars.propTypes = {
   status: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
   message: PropTypes.string,
   severity: PropTypes.string,
 };
 
 CustomizedSnackbars.defaultProps = {
-  severity: 'info',
+  severity: 'warning',
   message: 'Whoops!! Something went wrong',
 };

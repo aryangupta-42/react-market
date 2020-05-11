@@ -80,10 +80,19 @@ const Admin = (props) => {
   const [state, setState] = useState({
     username: '',
     password: '',
-    status: false,
-    message: '',
-    severity: '',
   });
+  const [status, setStatus] = useState(false);
+  const {
+    message, severity,
+  } = props;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setStatus(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -94,6 +103,7 @@ const Admin = (props) => {
     };
     const { loginAction } = props;
     loginAction(loginDetails);
+    setStatus(true);
   };
 
   const handleChange = (event) => {
@@ -104,7 +114,6 @@ const Admin = (props) => {
       setState({ ...state, password: value });
     }
   };
-
   return (
     <section className={classes.root}>
       <SubHeader title="Login" />
@@ -121,13 +130,28 @@ const Admin = (props) => {
           </form>
         </Paper>
       </div>
-      <Alert status message="hellooo" />
+      <Alert status={status} message={message} severity={severity} handleClose={handleClose} />
     </section>
   );
 };
 
 Admin.propTypes = {
   loginAction: PropTypes.func.isRequired,
+  message: PropTypes.string,
+  severity: PropTypes.string,
 };
 
-export default connect(null, { loginAction: login })(Admin);
+Admin.defaultProps = {
+  message: 'Whoops, An eror occurred',
+  severity: 'warning',
+};
+
+function mapStateToProps(state) {
+  const { alert } = state;
+  const {
+    message, severity,
+  } = alert;
+  return { message, severity };
+}
+
+export default connect(mapStateToProps, { loginAction: login })(Admin);

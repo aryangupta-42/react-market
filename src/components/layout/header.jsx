@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,8 +7,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -56,15 +58,67 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(7),
     backgroundColor: 'rgba(0, 0, 0, 0.08)',
   },
+  logoutButton: {
+    flexGrow: 0.2,
+    color: 'white',
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+  },
   adminNav: {
     textDecoration: 'none',
     fontStyle: 'none',
   },
 }));
 
-const Header = () => {
+
+const LogBtn = (props) => {
   const classes = useStyles();
 
+  const { logoutBool, logoutAction } = props;
+  if (logoutBool) {
+    return (
+      <Button color="inherit" className={classes.logoutButton} onClick={logoutAction}>
+        Logout
+      </Button>
+    );
+  }
+  return (
+    <Link to="/admin" className={classes.adminNav}>
+      <Button color="inherit" className={classes.loginButton}>
+        Login
+      </Button>
+    </Link>
+  );
+};
+
+LogBtn.propTypes = {
+  logoutBool: PropTypes.bool.isRequired,
+  logoutAction: PropTypes.func.isRequired,
+};
+
+const Header = (props) => {
+  const classes = useStyles();
+
+  const { logoutBool, logoutAction } = props;
+  let navOption1;
+  let navOption2;
+  if (logoutBool) {
+    navOption1 = (
+      <Typography>
+        <Link to="/cart" className={classes.navElement}>
+          Cart
+        </Link>
+      </Typography>
+    );
+    navOption2 = (
+      <Typography>
+        <Link to="/profile" className={classes.navElement}>
+          Profile
+        </Link>
+      </Typography>
+    );
+  }
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -72,6 +126,7 @@ const Header = () => {
           Xeno
         </Typography>
         <Breadcrumbs separator="|" aria-label="breadcrumb" classes={{ root: classes.navContainer, ol: classes.center }}>
+          <span />
           <Typography>
             <Link to="/" className={classes.navElement} aria-current="page">
               Home
@@ -82,25 +137,30 @@ const Header = () => {
               About
             </Link>
           </Typography>
-          <Typography>
-            <Link to="/cart" className={classes.navElement}>
-              Cart
-            </Link>
-          </Typography>
-          <Typography>
-            <Link to="/cart" className={classes.navElement}>
-              Cart
-            </Link>
-          </Typography>
+          {navOption1}
+          {navOption2}
+          <span />
         </Breadcrumbs>
-        <Link to="/admin" className={classes.adminNav}>
-          <Button color="inherit" className={classes.loginButton}>
-            Login
-          </Button>
-        </Link>
+        <LogBtn logoutBool={logoutBool} logoutAction={logoutAction} />
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Header;
+Header.propTypes = {
+  logoutBool: PropTypes.bool.isRequired,
+  logoutAction: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  let value = false;
+  if (auth.token !== null && auth.user !== null) {
+    value = true;
+  }
+  return {
+    logoutBool: value,
+  };
+};
+
+export default connect(mapStateToProps, { logoutAction: logout })(Header);

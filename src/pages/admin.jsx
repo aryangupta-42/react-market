@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +13,7 @@ import BackgroundImage from '../static/images/adminBackCrop.png';
 
 import SubHeader from '../components/layout/subHeader';
 import Alert from '../components/alert';
+import Loader from '../components/loader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,7 +85,7 @@ const Admin = (props) => {
   });
   const [status, setStatus] = useState(false);
   const {
-    message, severity,
+    message, severity, redirect, loading,
   } = props;
 
   const handleClose = (event, reason) => {
@@ -114,6 +116,12 @@ const Admin = (props) => {
       setState({ ...state, password: value });
     }
   };
+  if (loading) {
+    return <Loader />;
+  }
+  if (redirect) {
+    return <Redirect to="/profile" />;
+  }
   return (
     <section className={classes.root}>
       <SubHeader title="Login" />
@@ -137,6 +145,8 @@ const Admin = (props) => {
 
 Admin.propTypes = {
   loginAction: PropTypes.func.isRequired,
+  redirect: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   message: PropTypes.string,
   severity: PropTypes.string,
 };
@@ -147,11 +157,20 @@ Admin.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  const { alert } = state;
+  const { alert, auth } = state;
   const {
     message, severity,
   } = alert;
-  return { message, severity };
+  const {
+    token, user, loading,
+  } = auth;
+  let redirect = false;
+  if (token !== null && user !== null) {
+    redirect = true;
+  }
+  return {
+    message, severity, redirect, loading,
+  };
 }
 
 export default connect(mapStateToProps, { loginAction: login })(Admin);

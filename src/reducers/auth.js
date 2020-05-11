@@ -1,5 +1,5 @@
 import {
-  LOGIN_FAIL, LOGIN_SUCCESS, LOG_OUT,
+  LOGIN_FAIL, LOGIN_SUCCESS, LOG_OUT, USER_LOADED, AUTH_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -11,6 +11,14 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case USER_LOADED: {
+      return {
+        ...state,
+        loading: false,
+        user: payload,
+      };
+    }
+    case AUTH_ERROR:
     case LOG_OUT:
     case LOGIN_FAIL: {
       localStorage.removeItem('token');
@@ -25,7 +33,8 @@ export default function (state = initialState, action) {
       localStorage.setItem('token', payload.token);
       return {
         ...state,
-        loading: true,
+        token: payload.token,
+        loading: false,
         user: payload.admin,
       };
     }

@@ -9,6 +9,7 @@ import Header from './components/layout/header';
 import Landing from './pages/landing';
 import About from './pages/about';
 import Cart from './pages/cart';
+import Admin from './pages/admin';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,6 +28,7 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route path="/about" component={About} />
           <Route path="/cart" component={Cart} />
+          <Route private path="/admin" component={Admin} />
         </Switch>
       </div>
     </Router>

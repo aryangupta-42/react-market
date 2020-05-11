@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SubHeader from '../components/layout/subHeader';
+// import axios from '../utility/axios';
+
 
 const Cart = () => (
-  <div>
+  <section>
     <SubHeader title="Cart" />
-  </div>
+  </section>
 );
 
 export default Cart;

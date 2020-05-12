@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 100,
     display: 'flex',
   },
+  subTitle: {
+    marginLeft: theme.spacing(1.7),
+    alignSelf: 'center',
+    fontWeight: 100,
+  },
   bottomBar: {
     width: '100%',
     height: '2px',
@@ -40,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const SubHeader = (props) => {
   const classes = useStyles();
   const {
-    title,
+    title, text,
   } = props;
   let icon;
   if (title === 'Home') {
@@ -49,6 +55,8 @@ const SubHeader = (props) => {
     icon = <InfoIcon fontSize="large" />;
   } else if (title === 'Cart') {
     icon = <ShoppingCartIcon fontSize="large" />;
+  } else if (title === 'Profile') {
+    icon = <AccountBoxIcon fontSize="large" />;
   }
 
   return (
@@ -58,6 +66,11 @@ const SubHeader = (props) => {
           {icon}
         </span>
         {title}
+        {' '}
+        -
+        <Typography variant="h6" className={classes.subTitle}>
+          {text}
+        </Typography>
       </Typography>
       <div className={classes.bottomBar} />
     </div>
@@ -66,10 +79,12 @@ const SubHeader = (props) => {
 
 SubHeader.propTypes = {
   title: PropTypes.string,
+  text: PropTypes.string,
 };
 
 SubHeader.defaultProps = {
   title: 'Xeno',
+  text: '',
 };
 
 export default SubHeader;

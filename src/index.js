@@ -8,30 +8,29 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#fff',
-      main: '#ef5366',
-      dark: '#000',
+    palette: {
+        primary: {
+            light: '#fff',
+            main: '#ef5366',
+            dark: '#000',
+        },
+        secondary: {
+            main: 'rgba(240, 240, 240, 0.8)',
+        },
     },
-    secondary: {
-      main: 'rgba(240, 240, 240, 0.8)',
+    typography: {
+        useNextVariants: true,
     },
-  },
-  typography: {
-    useNextVariants: true,
-  },
 });
 
-
 ReactDOM.render(
-  // eslint-disable-next-line react/jsx-filename-extension
-  <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
-  </Provider>,
-  document.getElementById('root'),
+    // eslint-disable-next-line react/jsx-filename-extension
+    <Provider store={store}>
+        <MuiThemeProvider theme={theme}>
+            <App />
+        </MuiThemeProvider>
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

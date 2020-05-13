@@ -8,55 +8,53 @@ import { makeStyles } from '@material-ui/core/styles';
 const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props} />;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+    root: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     },
-  },
 }));
 
 export default function CustomizedSnackbars(props) {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const {
-    status, message, severity, handleClose,
-  } = props;
+    const { status, message, severity, handleClose } = props;
 
-  const horizontal = 'left';
-  const vertical = 'bottom';
+    const horizontal = 'left';
+    const vertical = 'bottom';
 
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  React.useEffect(() => {
-    setOpen(status);
-  }, [status]);
+    React.useEffect(() => {
+        setOpen(status);
+    }, [status]);
 
-  return (
-    <div className={classes.root}>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical, horizontal }}
-        key={`${vertical},${horizontal}`}
-      >
-        <Alert onClose={handleClose} severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical, horizontal }}
+                key={`${vertical},${horizontal}`}
+            >
+                <Alert onClose={handleClose} severity={severity}>
+                    {message}
+                </Alert>
+            </Snackbar>
+        </div>
+    );
 }
 
 CustomizedSnackbars.propTypes = {
-  status: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  message: PropTypes.string,
-  severity: PropTypes.string,
+    status: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    message: PropTypes.string,
+    severity: PropTypes.string,
 };
 
 CustomizedSnackbars.defaultProps = {
-  severity: 'warning',
-  message: 'Whoops!! Something went wrong',
+    severity: 'warning',
+    message: 'Whoops!! Something went wrong',
 };

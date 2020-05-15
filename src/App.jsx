@@ -2,19 +2,21 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import { loadUser } from './actions/auth';
 
-import Header from './components/layout/header';
 import PrivateRoute from './components/privateRoute';
+import SuperPrivateRoute from './components/superPrivateRoute';
+import Header from './components/layout/header';
 import Loader from './components/loader';
 import Landing from './pages/landing';
 import About from './pages/about';
+import Admin from './pages/admin';
 import Cart from './pages/cart';
 import Profile from './pages/profile';
-import Admin from './pages/admin';
+import AddUser from './pages/addUser';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -40,9 +42,10 @@ const App = (props) => {
                 <Switch>
                     <Route exact path="/" component={Landing} />
                     <Route path="/about" component={About} />
+                    <Route private path="/admin" component={Admin} />
                     <PrivateRoute path="/cart" component={Cart} />
                     <PrivateRoute path="/profile" component={Profile} />
-                    <Route private path="/admin" component={Admin} />
+                    <SuperPrivateRoute path="/addUser" component={AddUser} />
                 </Switch>
             </div>
         </Router>

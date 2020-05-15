@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 
 import SubHeader from '../components/layout/subHeader';
 import Item from '../components/item';

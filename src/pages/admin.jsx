@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -174,7 +174,7 @@ Admin.defaultProps = {
     severity: 'warning',
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     const { alert, auth } = state;
     const { message, severity } = alert;
     const { token, user, loading } = auth;
@@ -188,6 +188,6 @@ function mapStateToProps(state) {
         redirect,
         loading,
     };
-}
+};
 
 export default connect(mapStateToProps, { loginAction: login })(Admin);

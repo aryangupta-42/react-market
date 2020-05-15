@@ -43,18 +43,23 @@ export const login = (loginDetails) => async (dispatch) => {
             data: loginDetails,
         });
         const { data } = res.data;
+        dispatch(setAlert('Login Successful', 'success'));
         setAuthToken(data.token);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data,
         });
-        dispatch(setAlert('Login Successful', 'success'));
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL,
         });
-        const error = err.response.data;
-        dispatch(setAlert(error.message, 'error'));
+        let message =
+            'Whoops!! A server error occurred, please try again later';
+        if (typeof err.response !== 'undefined' && err.response) {
+            const error = err.response.data;
+            message = error.message;
+        }
+        dispatch(setAlert(message, 'error'));
     }
 };
 

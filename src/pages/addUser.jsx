@@ -8,6 +8,7 @@ import {
     InputLabel,
     FormControl,
     Button,
+    Typography,
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
@@ -21,13 +22,18 @@ const useStyles = makeStyles((theme) => ({
         height: 'auto',
         padding: theme.spacing(5),
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    title: {
+        fontWeight: 100,
     },
     formContainer: {
         width: '50%',
         minWidth: '400px',
         padding: theme.spacing(4),
+        marginTop: theme.spacing(4),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -125,6 +131,9 @@ const AddUser = (props) => {
         <section>
             <SubHeader title="Add User" />
             <div className={classes.rootContainer}>
+                <Typography variant="h3" className={classes.title}>
+                    Please fill out the following form...
+                </Typography>
                 <form onSubmit={handleSubmit}>
                     <div className={classes.formContainer}>
                         <div className={classes.inputRow}>

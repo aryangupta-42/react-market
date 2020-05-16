@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
     makeStyles,
@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
+import { register } from '../actions/admin';
+import Animate from '../components/animate';
 
 import SubHeader from '../components/layout/subHeader';
 import Alert from '../components/alert';
@@ -27,13 +29,16 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     title: {
+        marginTop: theme.spacing(4),
+        textAlign: 'center',
         fontWeight: 100,
     },
     formContainer: {
         width: '50%',
         minWidth: '400px',
         padding: theme.spacing(4),
-        marginTop: theme.spacing(4),
+        margin: 'auto',
+        marginTop: theme.spacing(2),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -64,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddUser = (props) => {
-    const { loading } = props;
+    const { loading, registerAction } = props;
 
     const classes = useStyles();
 
@@ -82,6 +87,31 @@ const AddUser = (props) => {
         alertMessage: message,
         status: false,
     });
+
+    useEffect(() => {
+        if (message !== '') {
+            setAlert({
+                alertMessage: message,
+                alertSeverity: severity,
+                status: true,
+            });
+            if (severity === 'success') {
+                setState({
+                    name: '',
+                    username: '',
+                    password: '',
+                    access: '',
+                });
+            }
+        }
+    }, [message, severity]);
+
+    useEffect(() => {
+        setAlert({
+            ...alert,
+            status: false,
+        });
+    }, []);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -117,7 +147,11 @@ const AddUser = (props) => {
                 status: true,
             });
         } else {
-            // insert axios posting code
+            registerAction(state);
+            setAlert({
+                ...alert,
+                status: true,
+            });
         }
     };
 
@@ -129,69 +163,75 @@ const AddUser = (props) => {
 
     return (
         <section>
-            <SubHeader title="Add User" />
+            <Animate>
+                <SubHeader title="Add User" />
+            </Animate>
             <div className={classes.rootContainer}>
-                <Typography variant="h3" className={classes.title}>
-                    Please fill out the following form...
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <div className={classes.formContainer}>
-                        <div className={classes.inputRow}>
+                <Animate index={1}>
+                    <Typography variant="h3" className={classes.title}>
+                        Please fill out the following form...
+                    </Typography>
+                </Animate>
+                <Animate index={2}>
+                    <form onSubmit={handleSubmit}>
+                        <div className={classes.formContainer}>
+                            <div className={classes.inputRow}>
+                                <TextField
+                                    className={classes.inputHalf1}
+                                    label="Name"
+                                    variant="filled"
+                                    name="name"
+                                    onChange={handleChange}
+                                    value={name}
+                                    required
+                                />
+                                <FormControl
+                                    variant="filled"
+                                    className={classes.inputHalf2}
+                                    required
+                                >
+                                    <InputLabel>Access</InputLabel>
+                                    <Select
+                                        value={access}
+                                        onChange={handleChange}
+                                        name="access"
+                                    >
+                                        <MenuItem value="superadmin">
+                                            SuperAdmin
+                                        </MenuItem>
+                                        <MenuItem value="admin">Admin</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
                             <TextField
-                                className={classes.inputHalf1}
-                                label="Name"
+                                className={classes.input}
+                                label="Username"
                                 variant="filled"
-                                name="name"
+                                name="username"
                                 onChange={handleChange}
-                                value={name}
+                                value={username}
                                 required
                             />
-                            <FormControl
+                            <TextField
+                                className={classes.input}
+                                label="Password"
                                 variant="filled"
-                                className={classes.inputHalf2}
+                                name="password"
+                                onChange={handleChange}
+                                value={password}
                                 required
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                className={classes.submitBtn}
                             >
-                                <InputLabel>Access</InputLabel>
-                                <Select
-                                    value={access}
-                                    onChange={handleChange}
-                                    name="access"
-                                >
-                                    <MenuItem value="superadmin">
-                                        SuperAdmin
-                                    </MenuItem>
-                                    <MenuItem value="admin">Admin</MenuItem>
-                                </Select>
-                            </FormControl>
+                                Create!
+                            </Button>
                         </div>
-                        <TextField
-                            className={classes.input}
-                            label="Username"
-                            variant="filled"
-                            name="username"
-                            onChange={handleChange}
-                            value={username}
-                            required
-                        />
-                        <TextField
-                            className={classes.input}
-                            label="Password"
-                            variant="filled"
-                            name="password"
-                            onChange={handleChange}
-                            value={password}
-                            required
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submitBtn}
-                        >
-                            Create!
-                        </Button>
-                    </div>
-                </form>
+                    </form>
+                </Animate>
             </div>
             <Alert
                 status={status}
@@ -207,6 +247,7 @@ AddUser.propTypes = {
     loading: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
     severity: PropTypes.string.isRequired,
+    registerAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -219,4 +260,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(AddUser);
+export default connect(mapStateToProps, { registerAction: register })(AddUser);

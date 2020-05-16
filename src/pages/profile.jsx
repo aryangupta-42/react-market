@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import SubHeader from '../components/layout/subHeader';
 import Loader from '../components/loader';
+import Animate from '../components/animate';
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
@@ -72,49 +73,98 @@ const Profile = (props) => {
         return <Loader />;
     }
     return (
-        <section>
-            <SubHeader title="Profile" text={username} />
-            <div className={classes.rootContainer}>
-                <div className={classes.firstHalf}>
-                    <div>
-                        <Typography variant="h3" className={classes.title}>
-                            <span>Welcome,</span> {name}
-                        </Typography>
+        <Animate>
+            <section>
+                <Animate index={1}>
+                    <SubHeader title="Profile" text={username} />
+                </Animate>
+                <div className={classes.rootContainer}>
+                    <div className={classes.firstHalf}>
+                        <div>
+                            <Animate index={2}>
+                                <Typography
+                                    variant="h3"
+                                    className={classes.title}
+                                >
+                                    <span>Welcome,</span> {name}
+                                </Typography>
+                            </Animate>
+                        </div>
+                        <Animate index={4}>
+                            <Typography
+                                variant="subtitle1"
+                                className={classes.access}
+                            >
+                                Your privilege is currently that of {access}
+                            </Typography>
+                            <div className={classes.miniLine} />
+                        </Animate>
+                        <div className={classes.btnContainer}>
+                            <Animate index={5}>
+                                <Button
+                                    variant="outlined"
+                                    className={classes.btn}
+                                >
+                                    Add Item
+                                </Button>
+                            </Animate>
+                            <Animate index={6}>
+                                <Button
+                                    variant="outlined"
+                                    className={classes.btn}
+                                >
+                                    Remove Item
+                                </Button>
+                            </Animate>
+                            <Animate index={6}>
+                                <Link to="/addUser" className={classes.navBtn}>
+                                    <Button
+                                        variant="outlined"
+                                        className={classes.btn}
+                                    >
+                                        Add User
+                                    </Button>
+                                </Link>
+                            </Animate>
+                            <Animate index={7}>
+                                <Link
+                                    to="/removeUser"
+                                    className={classes.navBtn}
+                                >
+                                    <Button
+                                        variant="outlined"
+                                        className={classes.btn}
+                                    >
+                                        Remove User
+                                    </Button>
+                                </Link>
+                            </Animate>
+                            <Animate index={8}>
+                                <Button
+                                    variant="outlined"
+                                    className={classes.btn}
+                                >
+                                    Edit Item
+                                </Button>
+                            </Animate>
+                        </div>
                     </div>
-                    <Typography variant="subtitle1" className={classes.access}>
-                        Your privilege is currently that of {access}
-                    </Typography>
-                    <div className={classes.miniLine} />
-                    <div className={classes.btnContainer}>
-                        <Button variant="outlined" className={classes.btn}>
-                            Add Item
-                        </Button>
-                        <Button variant="outlined" className={classes.btn}>
-                            Remove Item
-                        </Button>
-                        <Link to="/addUser" className={classes.navBtn}>
-                            <Button variant="outlined" className={classes.btn}>
-                                Add User
-                            </Button>
-                        </Link>
-                        <Button variant="outlined" className={classes.btn}>
-                            Remove User
-                        </Button>
-                        <Button variant="outlined" className={classes.btn}>
-                            Edit Item
-                        </Button>
+                    <div className={classes.secondHalf}>
+                        <Animate index={3}>
+                            <div>
+                                <Typography
+                                    variant="h3"
+                                    className={classes.title}
+                                >
+                                    <span>Recent Purchases</span>
+                                </Typography>
+                            </div>
+                            <div className={classes.miniLine} />
+                        </Animate>
                     </div>
                 </div>
-                <div className={classes.secondHalf}>
-                    <div>
-                        <Typography variant="h3" className={classes.title}>
-                            <span>Recent Purchases</span>
-                        </Typography>
-                    </div>
-                    <div className={classes.miniLine} />
-                </div>
-            </div>
-        </section>
+            </section>
+        </Animate>
     );
 };
 

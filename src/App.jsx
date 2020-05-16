@@ -17,6 +17,7 @@ import Admin from './pages/admin';
 import Cart from './pages/cart';
 import Profile from './pages/profile';
 import AddUser from './pages/addUser';
+import RemoveUser from './pages/removeUser';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -46,6 +47,10 @@ const App = (props) => {
                     <PrivateRoute path="/cart" component={Cart} />
                     <PrivateRoute path="/profile" component={Profile} />
                     <SuperPrivateRoute path="/addUser" component={AddUser} />
+                    <SuperPrivateRoute
+                        path="/removeUser"
+                        component={RemoveUser}
+                    />
                 </Switch>
             </div>
         </Router>

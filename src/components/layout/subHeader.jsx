@@ -62,9 +62,7 @@ const SubHeader = (props) => {
             <Typography variant="h4" className={classes.title}>
                 <span className={classes.icon}>{icon}</span>
                 {title} -
-                <Typography variant="h6" className={classes.subTitle}>
-                    {text}
-                </Typography>
+                <Typography className={classes.subTitle}>{text}</Typography>
             </Typography>
             <div className={classes.bottomBar} />
         </div>

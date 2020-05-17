@@ -1,5 +1,6 @@
 import axios from '../utility/axios';
 import { setAlert } from './alert';
+import { GET_ADMINS } from './types';
 
 // register new user
 export const register = (userDetails) => async (dispatch) => {
@@ -22,9 +23,16 @@ export const register = (userDetails) => async (dispatch) => {
     }
 };
 
-export const remove = (userDetails) => async (dispatch) => {
+export const deleteAdmin = (id) => async (dispatch) => {
     try {
-        console.log(userDetails);
+        const res = await axios({
+            url: `/api/admin/delete/${id}`,
+            method: 'POST',
+        });
+        const { status } = res.data;
+        if (status) {
+            dispatch(setAlert('User deleted', 'success'));
+        }
     } catch (err) {
         const { data } = err.response;
         const { message } = data;
@@ -35,6 +43,17 @@ export const remove = (userDetails) => async (dispatch) => {
 export const getAllAdmin = () => async (dispatch) => {
     try {
         // all user retriveal
+        const res = await axios({
+            url: '/api/admin/all',
+            method: 'GET',
+        });
+        const { status, data } = res.data;
+        if (status) {
+            dispatch({
+                type: GET_ADMINS,
+                payload: data,
+            });
+        }
     } catch (err) {
         const { data } = err.response;
         const { message } = data;

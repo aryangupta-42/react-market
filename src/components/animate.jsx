@@ -27,7 +27,7 @@ const Animate = (props) => {
 Animate.propTypes = {
     delay: PropTypes.number,
     index: PropTypes.number,
-    children: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([PropTypes.array]).isRequired,
 };
 
 Animate.defaultProps = {
